@@ -1,6 +1,5 @@
 export class Note {
   constructor(state, initialValues) {
-    this.form = {};
     this.title = initialValues ? initialValues.title : '';
     this.content = initialValues ? initialValues.content : '';
     this.date = null;

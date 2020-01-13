@@ -7,17 +7,20 @@ let savedNotes = [];
 
 const savedNotesProxy = new Proxy(savedNotes, {
   set: (target, key, value) => {
-    target[key] = value;
-    console.log('state', savedNotes);
-    if (typeof value !== 'number') addExcerpt(value);
-
+    if (typeof value !== 'number') {
+      if (!savedNotes.map(item => item.title).includes(value.title)) {
+        target[key] = value;
+        addExcerpt(value);
+      }
+    }
     return true;
   },
 });
 
 function addExcerpt(note) {
   const excerpt = new Excerpt(note);
-  noteExcerpt.appendChild(excerpt.createExcerptElement());
+  const excerptElem = excerpt.createExcerptElement();
+  noteExcerpt.appendChild(excerptElem);
 }
 
 const noteView = new Note(savedNotesProxy);

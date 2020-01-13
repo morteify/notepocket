@@ -24,19 +24,19 @@ main {
           flex-direction: row;
 }
 
-#noteExcerpt {
+#note-excerpt {
   background-color: #8d8d8d;
   height: 100vh;
   width: 20vw;
 }
 
-#noteContent {
+#note-content {
   background-color: #f8f8f8;
   height: 100vh;
   width: 70vw;
 }
 
-#noteContentTextarea {
+#note-content-textarea {
   background: transparent;
   color: black;
   resize: none;
@@ -47,7 +47,7 @@ main {
   height: 500px;
 }
 
-#noteTitleTextarea {
+#note-title-textarea {
   background: transparent;
   color: black;
   resize: none;
@@ -56,5 +56,19 @@ main {
   font-size: 3em;
   outline: none;
   font-weight: bold;
+}
+
+.excerpt {
+  background-color: red;
+  width: 100%;
+  min-height: 8rem;
+}
+
+.excerpt__title {
+  font-size: 1.5rem;
+}
+
+.excerpt__date {
+  font-size: 1rem;
 }
 /*# sourceMappingURL=styles.css.map */

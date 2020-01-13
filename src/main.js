@@ -1,24 +1,23 @@
 import { Note } from './components/Note.js';
+import { Excerpt } from './components/Excerpt.js';
 
-const noteExcerpt = document.querySelector('#noteExcerpt');
-const noteContent = document.querySelector('#noteContent');
+const noteExcerpt = document.querySelector('#note-excerpt');
+const noteContent = document.querySelector('#note-content');
 let savedNotes = [];
 
 const savedNotesProxy = new Proxy(savedNotes, {
   set: (target, key, value) => {
     target[key] = value;
     console.log('state', savedNotes);
-    if (typeof value !== 'number') updateExcerpt(value);
+    if (typeof value !== 'number') addExcerpt(value);
+
     return true;
   },
 });
 
-function updateExcerpt(note) {
-  const node = document.createElement('p');
-  node.innerText += note.title;
-  node.innerText += note.date;
-  noteExcerpt.appendChild(node);
+function addExcerpt(note) {
+  const excerpt = new Excerpt(note);
+  noteExcerpt.appendChild(excerpt.createExcerptElement());
 }
 
 const noteView = new Note(savedNotesProxy);
-noteView.render();

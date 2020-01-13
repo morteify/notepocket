@@ -6,17 +6,20 @@ export class Note {
     this.date = null;
     this.tags = [];
     this.state = state;
+    this.addContent();
+    this.addTitle();
+    this.saveNote();
   }
 
   addTitle = () => {
-    const text = document.querySelector('#noteTitleTextarea');
+    const text = document.querySelector('#note-title-textarea');
     text.addEventListener('change', () => {
       this.title = text.value;
     });
   };
 
   addContent = () => {
-    const text = document.querySelector('#noteContentTextarea');
+    const text = document.querySelector('#note-content-textarea');
     text.addEventListener('change', () => {
       this.content = text.value;
     });
@@ -36,11 +39,5 @@ export class Note {
         date: this.date,
       });
     });
-  };
-
-  render = () => {
-    this.addContent();
-    this.addTitle();
-    this.saveNote();
   };
 }

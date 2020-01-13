@@ -2,16 +2,18 @@ export class Note {
   constructor(state, initialValues) {
     this.title = initialValues ? initialValues.title : '';
     this.content = initialValues ? initialValues.content : '';
-    this.date = null;
+    this.date = initialValues ? initialValues.date : '';
     this.tags = [];
     this.state = state;
     this.addContent();
     this.addTitle();
     this.saveNote();
+    console.log('initial', initialValues);
   }
 
   addTitle = () => {
     const text = document.querySelector('#note-title-textarea');
+    if (this.title) text.value = this.title;
     text.addEventListener('change', () => {
       this.title = text.value;
     });
@@ -19,6 +21,7 @@ export class Note {
 
   addContent = () => {
     const text = document.querySelector('#note-content-textarea');
+    if (this.content) text.value = this.content;
     text.addEventListener('change', () => {
       this.content = text.value;
     });

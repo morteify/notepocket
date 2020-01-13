@@ -1,6 +1,7 @@
 export class Excerpt {
   constructor(note) {
     this.title = note ? note.title : '';
+    this.content = note ? note.content : '';
     this.date = note ? note.date : '';
     this.tags = [];
     this.createExcerptElement();

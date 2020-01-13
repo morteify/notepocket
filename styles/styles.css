@@ -9,7 +9,7 @@ body {
 }
 
 aside {
-  background-color: red;
+  background-color: #383838;
   height: 100vh;
   width: 10vw;
 }
@@ -25,14 +25,36 @@ main {
 }
 
 #noteExcerpt {
-  background-color: green;
+  background-color: #8d8d8d;
   height: 100vh;
   width: 20vw;
 }
 
 #noteContent {
-  background-color: blue;
+  background-color: #f8f8f8;
   height: 100vh;
   width: 70vw;
+}
+
+#noteContentTextarea {
+  background: transparent;
+  color: black;
+  resize: none;
+  border: 0 none;
+  width: 100%;
+  font-size: 2em;
+  outline: none;
+  height: 500px;
+}
+
+#noteTitleTextarea {
+  background: transparent;
+  color: black;
+  resize: none;
+  border: 0 none;
+  width: 100%;
+  font-size: 3em;
+  outline: none;
+  font-weight: bold;
 }
 /*# sourceMappingURL=styles.css.map */

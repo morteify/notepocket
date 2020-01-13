@@ -1,1 +1,38 @@
-/* No CSS *//*# sourceMappingURL=styles.css.map */
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+aside {
+  background-color: red;
+  height: 100vh;
+  width: 10vw;
+}
+
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+#noteExcerpt {
+  background-color: green;
+  height: 100vh;
+  width: 20vw;
+}
+
+#noteContent {
+  background-color: blue;
+  height: 100vh;
+  width: 70vw;
+}
+/*# sourceMappingURL=styles.css.map */

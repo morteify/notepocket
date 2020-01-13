@@ -1,9 +1,9 @@
 const note = {
-	title: '',
-	content: '',
-	tags: []
-}
+  title: '',
+  content: '',
+  tags: [],
+};
 
 const state = {
-	savedNote
-}
+  savedNote: '',
+};

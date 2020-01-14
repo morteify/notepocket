@@ -33,7 +33,7 @@ export class Excerpt {
     date.classList.add('excerpt__date');
 
     const { year, month, day, hours, minutes } = this.parseUnixTime();
-    date.innerText = `${day}-${month}-${year} ${hours}:${minutes}`;
+    date.innerText = `${day}.${month}.${year} ⚫ ${hours}:${minutes}`;
 
     elem.appendChild(title);
     elem.appendChild(date);

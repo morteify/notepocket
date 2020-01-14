@@ -8,7 +8,6 @@ export class Note {
     this.addContent();
     this.addTitle();
     this.saveNote();
-    console.log('initial', initialValues);
   }
 
   addTitle = () => {
@@ -16,6 +15,7 @@ export class Note {
     if (this.title) text.value = this.title;
     text.addEventListener('change', () => {
       this.title = text.value;
+      this.saveNote();
     });
   };
 
@@ -24,6 +24,7 @@ export class Note {
     if (this.content) text.value = this.content;
     text.addEventListener('change', () => {
       this.content = text.value;
+      this.saveNote();
     });
   };
 
@@ -32,14 +33,17 @@ export class Note {
   };
 
   saveNote = () => {
-    const saveButton = document.querySelector('#save-note');
-    saveButton.addEventListener('click', () => {
-      this.addDate();
-      this.state.push({
-        title: this.title,
-        content: this.content,
-        date: this.date,
-      });
+    // const saveButton = document.querySelector('#save-note');
+    // saveButton.addEventListener('click', () => {
+    // this.addDate();
+    this.state.push({
+      title: this.title,
+      content: this.content,
+      date: this.date,
     });
+    // this.state.push({
+    //   [key]: val,
+    // });
+    // });
   };
 }

@@ -38,20 +38,24 @@ export class Excerpt {
     }
   };
 
-  createExcerptElement = () => {
+  createExcerptElement = id => {
     const elem = document.createElement('div');
     elem.classList.add('excerpt');
     const title = document.createElement('p');
-    title.classList.add('excerpt__title' + this._date);
+    title.classList.add(`excerpt__title-${id}`);
     title.innerText = this._title;
     const date = document.createElement('p');
-    date.classList.add('excerpt__date');
+    date.classList.add(`excerpt__date-${id}`);
+    const noteFragment = document.createElement('p');
+    noteFragment.classList.add(`excerpt__noteFragment-${id}`);
+    noteFragment.innerText = this._content;
 
     const { year, month, day, hours, minutes } = this.parseUnixTime();
     date.innerText = `${day}.${month}.${year} ⚫ ${hours}:${minutes}`;
 
     elem.appendChild(title);
     elem.appendChild(date);
+    elem.appendChild(noteFragment);
     this.parseUnixTime();
     return elem;
   };

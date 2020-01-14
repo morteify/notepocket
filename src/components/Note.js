@@ -36,11 +36,11 @@ export class Note {
     // const saveButton = document.querySelector('#save-note');
     // saveButton.addEventListener('click', () => {
     // this.addDate();
-    this.state.push({
+    this.state[this.date] = {
       title: this.title,
       content: this.content,
       date: this.date,
-    });
+    };
     // this.state.push({
     //   [key]: val,
     // });

@@ -9,9 +9,6 @@ export class Excerpt {
 
   set title(newValue) {
     this._title = newValue;
-    const excerptTitle = document.querySelector('.excerpt__title' + this._date);
-    console.log('title', this._title);
-    excerptTitle.innerHTML = this._title;
   }
 
   set content(newValue) {
@@ -40,6 +37,7 @@ export class Excerpt {
 
   createExcerptElement = id => {
     const elem = document.createElement('div');
+    elem.id = id;
     elem.classList.add('excerpt');
     const title = document.createElement('p');
     title.classList.add(`excerpt__title-${id}`);
@@ -51,6 +49,13 @@ export class Excerpt {
     noteFragment.innerText = this._content;
 
     const { year, month, day, hours, minutes } = this.parseUnixTime();
+    // const { year, month, day, hours, minutes } = [
+    //   'year',
+    //   'month',
+    //   'day',
+    //   'hours',
+    //   'minutes',
+    // ];
     date.innerText = `${day}.${month}.${year} ⚫ ${hours}:${minutes}`;
 
     elem.appendChild(title);

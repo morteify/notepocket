@@ -22,22 +22,23 @@ let propsToShow = {
 const savedNotesProxy = new Proxy(savedNotes, {
   set: (target, key, value) => {
     if (typeof value !== 'number') {
-      if (value.date === propsToShow.date) {
-        target[propsToShow.date] = value;
-        excerptsObj[propsToShow.date] = value;
-        console.log('excerptsObj', excerptsObj);
-        try {
-          const excerptTitle = document.querySelector(
-            `.excerpt__title-${propsToShow.date}`,
-          );
-          excerptTitle.innerText = target[propsToShow.date].title;
-          const excerptNoteFragment = document.querySelector(
-            `.excerpt__noteFragment-${propsToShow.date}`,
-          );
-          excerptNoteFragment.innerText = target[propsToShow.date].content;
-        } catch (error) {
-          console.error;
-        }
+      excerptsObj[propsToShow.date] = value;
+      target[propsToShow.date] = value;
+      console.log(savedNotes);
+
+      const excerptTitle = document.querySelector(
+        `.excerpt__title-${propsToShow.date}`,
+      );
+      if (excerptTitle) {
+        excerptTitle.innerText = value.title;
+      }
+
+      const excerptNoteFragment = document.querySelector(
+        `.excerpt__noteFragment-${propsToShow.date}`,
+      );
+
+      if (excerptNoteFragment) {
+        excerptNoteFragment.innerText = propsToShow.content;
       }
     }
     return true;
@@ -46,28 +47,29 @@ const savedNotesProxy = new Proxy(savedNotes, {
 
 const addNoteButton = document.querySelector('#save-note');
 addNoteButton.addEventListener('click', () => {
-  propsToShow.date = Date.now();
-  currentNote = new Note(savedNotesProxy, propsToShow);
+  propsToShow.title = '';
+  propsToShow.content = '';
+  const currentDate = Date.now();
+  propsToShow.date = currentDate;
+  const currentNote = new Note(savedNotesProxy, propsToShow);
+  currentNote.date = currentDate;
   savedNotes[propsToShow.date] = currentNote;
   addExcerpt(currentNote);
-});
-
-const propsToShowProxy = new Proxy(propsToShow, {
-  set: (target, key, value) => {
-    currentNote = value;
-    return true;
-  },
 });
 
 function addExcerpt(note) {
   const excerpt = new Excerpt(note);
   excerptsObj[propsToShow.date] = excerpt;
-  const excerptElem = excerpt.createExcerptElement(note.date);
+  const excerptElem = excerpt.createExcerptElement(propsToShow.date);
+
   excerptElem.addEventListener('click', event => {
-    const [title, content, date] = event.currentTarget.children;
-    propsToShowProxy.title = title.innerText;
-    propsToShowProxy.content = content.innerText;
-    propsToShowProxy.date = date.innerText;
+    const [title, _, content] = event.currentTarget.children;
+    const date = event.currentTarget.id;
+    noteTitleTextarea.value = title.innerText;
+    noteContentTextarea.value = content.innerText;
+    propsToShow.title = title.innerText;
+    propsToShow.content = content.innerText;
+    propsToShow.date = parseInt(date);
   });
   noteExcerpt.appendChild(excerptElem);
 }

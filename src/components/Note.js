@@ -1,29 +1,33 @@
 export class Note {
-  constructor(state, initialValues) {
-    this.title = initialValues ? initialValues.title : '';
-    this.content = initialValues ? initialValues.content : '';
-    this.date = initialValues ? initialValues.date : '';
+  constructor(state, propsToShowRef = null) {
+    this.propsToShowRef = propsToShowRef;
+    this.title = '';
+    this.content = '';
+    this.date = '';
     this.tags = [];
     this.state = state;
     this.addContent();
     this.addTitle();
-    this.saveNote();
   }
 
   addTitle = () => {
     const text = document.querySelector('#note-title-textarea');
-    if (this.title) text.value = this.title;
-    text.addEventListener('change', () => {
+    text.addEventListener('input', () => {
       this.title = text.value;
+      if (this.propsToShowRef) {
+        this.propsToShowRef.title = this.title;
+      }
       this.saveNote();
     });
   };
 
   addContent = () => {
     const text = document.querySelector('#note-content-textarea');
-    if (this.content) text.value = this.content;
-    text.addEventListener('change', () => {
+    text.addEventListener('input', () => {
       this.content = text.value;
+      if (this.propsToShowRef) {
+        this.propsToShowRef.content = this.content;
+      }
       this.saveNote();
     });
   };
@@ -33,17 +37,10 @@ export class Note {
   };
 
   saveNote = () => {
-    // const saveButton = document.querySelector('#save-note');
-    // saveButton.addEventListener('click', () => {
-    // this.addDate();
     this.state[this.date] = {
-      title: this.title,
-      content: this.content,
+      title: this.propsToShowRef.title,
+      content: this.propsToShowRef.content,
       date: this.date,
     };
-    // this.state.push({
-    //   [key]: val,
-    // });
-    // });
   };
 }

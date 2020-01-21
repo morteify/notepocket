@@ -24,7 +24,6 @@ noteTitleTextarea.value = null;
 noteContentTextarea.value = null;
 
 let savedNotes = {};
-let excerptsObj = {};
 let propsToShow = {
   title: '',
   content: '',
@@ -34,7 +33,6 @@ let propsToShow = {
 const savedNotesProxy = new Proxy(savedNotes, {
   set: (target, key, value) => {
     if (typeof value !== 'number') {
-      excerptsObj[propsToShow.date] = value;
       target[propsToShow.date] = value;
       const localStorage = window.localStorage;
       let savedNotesLocalStorage = JSON.parse(
@@ -97,7 +95,6 @@ function addNewNote(props, proxy, date) {
 
 function addExcerpt(note) {
   const excerpt = new Excerpt(note.propsToShowRef);
-  excerptsObj[propsToShow.date] = excerpt;
   const excerptElem = excerpt.createExcerptElement(propsToShow.date);
 
   excerptElem.addEventListener('click', event => {

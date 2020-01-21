@@ -21,6 +21,9 @@ const noteContent = document.querySelector('#note-content');
 
 const noteTitleTextarea = document.querySelector('#note-title-textarea');
 const noteContentTextarea = document.querySelector('#note-content-textarea');
+const dateContentTextArea = document.querySelector(
+  '#note-content__header__date',
+);
 
 noteTitleTextarea.value = null;
 noteContentTextarea.value = null;
@@ -30,6 +33,8 @@ let propsToShow = {
   content: '',
   date: null,
 };
+
+let currentlySelectedExcerpt = null;
 
 const savedNotesProxy = new Proxy(savedNotes, {
   set: (target, key, value) => {
@@ -97,8 +102,27 @@ function addExcerpt(note) {
   excerptElem.addEventListener('click', event => {
     const [title, _, content] = event.currentTarget.children;
     const date = event.currentTarget.id;
+
+    if (currentlySelectedExcerpt !== null) {
+      try {
+        const prevElem = document.querySelector(`#${currentlySelectedExcerpt}`);
+        prevElem.style.background = '#f7f7f7';
+      } catch (error) {
+        console.error;
+      }
+    }
+
+    currentlySelectedExcerpt = date;
+    event.currentTarget.style.background = 'rgb(201, 201, 201)';
+
+    const { year, month, day, hours, minutes } = Note.parseUnixTime(
+      parseInt(date.replace('excerpt-', '')),
+    );
+    dateContentTextArea.innerText = `${day}.${month}.${year} ⚫ ${hours}:${minutes}`;
+
     noteTitleTextarea.value = title.innerText;
     noteContentTextarea.value = content.innerText;
+
     propsToShow.title = title.innerText;
     propsToShow.content = content.innerText;
     propsToShow.date = parseInt(date.replace('excerpt-', ''));

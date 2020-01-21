@@ -5,15 +5,50 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="styles/styles.css" />
 	<title>NotePocket</title>
+	<link rel="stylesheet" href="styles/styles.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 
 <body>
 	<aside></aside>
 	<main>
-		<div id="noteExcerpt"></div>
-		<div id="noteContent"></div>
+		<div id="note-excerpt">
+			<div id="note-excerpt__header">
+				<div class="field">
+					<p class="control has-icons-left">
+						<input class="input" type="text" placeholder="Szukaj">
+						<span class="icon is-small is-left">
+							<i class="fas fa-search"></i>
+						</span>
+
+					</p>
+				</div>
+				<button class="button is-white is-medium" id="save-note">
+					<span class="icon is-medium">
+						<i class="fas fa-edit"></i>
+					</span>
+				</button>
+			</div>
+		</div>
+		<div id="note-content">
+			<div id="note-content__header">
+
+			</div>
+
+			<div id="note-content__main-area">
+				<div class="field is-horizontal">
+
+					<div class="field-body">
+						<textarea id="note-title-textarea" type="text" maxlength="50" placeholder="Title"></textarea>
+					</div>
+				</div>
+
+				<div class="field is-horizontal">
+					<textarea id="note-content-textarea" placeholder="Content"></textarea>
+				</div>
+			</div>
 	</main>
 	<script type="module" src="src/main.js"></script>
 </body>

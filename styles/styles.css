@@ -84,7 +84,8 @@ main {
   resize: none;
   border: 0 none;
   width: 100%;
-  font-size: 2em;
+  font-size: 1.25rem;
+  color: #383838;
   outline: none;
   min-height: 100vh;
 }
@@ -100,11 +101,16 @@ main {
   font-weight: bold;
 }
 
+#note-excerpt:not(#note-excerpt__header) {
+  max-height: 100%;
+  overflow: auto;
+}
+
 .excerpt {
   background-color: #c9c9c9;
   width: 100%;
   max-width: 100%;
-  min-height: 8rem;
+  height: 8rem;
   padding: 1.25rem;
   border-bottom: 1px solid rgba(180, 180, 180, 0.829);
 }
@@ -113,14 +119,24 @@ main {
   cursor: pointer;
 }
 
-.excerpt .excerpt__title {
+.excerpt :nth-child(1) {
   font-weight: bold;
   font-size: 1.7rem;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.excerpt .excerpt__date {
+.excerpt :nth-child(2) {
   font-size: 0.75rem;
+  color: #6d6d6d;
+}
+
+.excerpt :nth-child(3) {
+  word-break: break-all;
+  white-space: nowrap;
+  max-height: 2rem;
+  color: #4d4d4d;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 /*# sourceMappingURL=styles.css.map */

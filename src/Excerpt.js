@@ -1,3 +1,5 @@
+import { Note } from './Note.js';
+
 export class Excerpt {
   constructor(note) {
     this._title = note ? note.title : '';
@@ -19,22 +21,6 @@ export class Excerpt {
     this._date = newValue;
   }
 
-  parseUnixTime = () => {
-    if (this._date) {
-      const getParsedDate = (unixTime, callback) => {
-        const dateFromUnixTime = new Date(unixTime);
-        const parsed = callback(dateFromUnixTime);
-        return parsed.toString().padStart(2, 0);
-      };
-      const year = getParsedDate(this._date, date => date.getFullYear());
-      const month = getParsedDate(this._date, date => date.getMonth() + 1);
-      const day = getParsedDate(this._date, date => date.getDate());
-      const hours = getParsedDate(this._date, date => date.getHours());
-      const minutes = getParsedDate(this._date, date => date.getMinutes());
-      return { year, month, day, hours, minutes };
-    }
-  };
-
   createExcerptElement = id => {
     const elem = document.createElement('div');
     elem.id = id;
@@ -48,7 +34,7 @@ export class Excerpt {
     noteFragment.classList.add(`excerpt__noteFragment-${id}`);
     noteFragment.innerText = this._content;
 
-    const { year, month, day, hours, minutes } = this.parseUnixTime();
+    const { year, month, day, hours, minutes } = Note.parseUnixTime(this._date);
     // const { year, month, day, hours, minutes } = [
     //   'year',
     //   'month',
@@ -61,7 +47,7 @@ export class Excerpt {
     elem.appendChild(title);
     elem.appendChild(date);
     elem.appendChild(noteFragment);
-    this.parseUnixTime();
+    Note.parseUnixTime(this._date);
     return elem;
   };
 }

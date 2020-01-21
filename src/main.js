@@ -4,10 +4,8 @@ import { Excerpt } from './Excerpt.js';
 window.onload = () => {
   const localStorage = window.localStorage;
   const savedNotes = JSON.parse(localStorage.getItem('savedNotes'));
-  console.log('local', savedNotes);
   if (savedNotes && Object.values(savedNotes).length) {
     Object.values(savedNotes).forEach(item => {
-      console.log(item);
       propsToShow.title = item.title;
       propsToShow.content = item.content;
       addNewNote(propsToShow, savedNotesProxy, item.date);
@@ -38,8 +36,6 @@ const savedNotesProxy = new Proxy(savedNotes, {
     if (typeof value !== 'number') {
       excerptsObj[propsToShow.date] = value;
       target[propsToShow.date] = value;
-      console.log('savedNotes', savedNotes);
-      console.log('excerptsObj', excerptsObj);
       const localStorage = window.localStorage;
       let savedNotesLocalStorage = JSON.parse(
         localStorage.getItem('savedNotes'),
@@ -48,7 +44,6 @@ const savedNotesProxy = new Proxy(savedNotes, {
       if (savedNotesLocalStorage === null) {
         savedNotesLocalStorage = {};
       }
-      console.log("ojej', ", savedNotesLocalStorage);
       savedNotesLocalStorage[propsToShow.date] = value;
       localStorage.setItem(
         'savedNotes',
@@ -101,7 +96,6 @@ function addNewNote(props, proxy, date) {
 }
 
 function addExcerpt(note) {
-  console.log('note', note);
   const excerpt = new Excerpt(note.propsToShowRef);
   excerptsObj[propsToShow.date] = excerpt;
   const excerptElem = excerpt.createExcerptElement(propsToShow.date);
@@ -114,7 +108,6 @@ function addExcerpt(note) {
     propsToShow.title = title.innerText;
     propsToShow.content = content.innerText;
     propsToShow.date = parseInt(date);
-    console.log('clicked', propsToShow.date);
   });
   noteExcerpt.appendChild(excerptElem);
 }

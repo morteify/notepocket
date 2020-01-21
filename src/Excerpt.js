@@ -35,13 +35,6 @@ export class Excerpt {
     noteFragment.innerText = this._content;
 
     const { year, month, day, hours, minutes } = Note.parseUnixTime(this._date);
-    // const { year, month, day, hours, minutes } = [
-    //   'year',
-    //   'month',
-    //   'day',
-    //   'hours',
-    //   'minutes',
-    // ];
     date.innerText = `${day}.${month}.${year} ⚫ ${hours}:${minutes}`;
 
     elem.appendChild(title);

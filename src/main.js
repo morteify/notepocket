@@ -5,10 +5,11 @@ window.onload = () => {
   const localStorage = window.localStorage;
   const savedNotes = JSON.parse(localStorage.getItem('savedNotes'));
   if (savedNotes && Object.values(savedNotes).length) {
-    Object.values(savedNotes).forEach(item => {
-      propsToShow.title = item.title;
-      propsToShow.content = item.content;
-      addNewNote(propsToShow, savedNotesProxy, item.date);
+    Object.entries(savedNotes).forEach(([key, value]) => {
+      propsToShow.title = value.title;
+      propsToShow.content = value.content;
+      propsToShow.date = key;
+      addNewNote(propsToShow, savedNotesProxy, parseInt(key));
     });
   }
 };
@@ -24,7 +25,6 @@ noteContentTextarea.value = null;
 
 let savedNotes = {};
 let excerptsObj = {};
-let currentNote = null;
 let propsToShow = {
   title: '',
   content: '',

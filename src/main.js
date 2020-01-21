@@ -1,11 +1,13 @@
 import { Note } from './Note.js';
 import { Excerpt } from './Excerpt.js';
 
+let savedNotes = {};
+
 window.onload = () => {
   const localStorage = window.localStorage;
-  const savedNotes = JSON.parse(localStorage.getItem('savedNotes'));
-  if (savedNotes && Object.values(savedNotes).length) {
-    Object.entries(savedNotes).forEach(([key, value]) => {
+  const localStorageSavedNotes = JSON.parse(localStorage.getItem('savedNotes'));
+  if (localStorageSavedNotes && Object.values(localStorageSavedNotes).length) {
+    Object.entries(localStorageSavedNotes).forEach(([key, value]) => {
       propsToShow.title = value.title;
       propsToShow.content = value.content;
       propsToShow.date = key;
@@ -23,7 +25,6 @@ const noteContentTextarea = document.querySelector('#note-content-textarea');
 noteTitleTextarea.value = null;
 noteContentTextarea.value = null;
 
-let savedNotes = {};
 let propsToShow = {
   title: '',
   content: '',
@@ -33,7 +34,6 @@ let propsToShow = {
 const savedNotesProxy = new Proxy(savedNotes, {
   set: (target, key, value) => {
     if (typeof value !== 'number') {
-      target[propsToShow.date] = value;
       const localStorage = window.localStorage;
       let savedNotesLocalStorage = JSON.parse(
         localStorage.getItem('savedNotes'),
@@ -42,6 +42,7 @@ const savedNotesProxy = new Proxy(savedNotes, {
       if (savedNotesLocalStorage === null) {
         savedNotesLocalStorage = {};
       }
+
       savedNotesLocalStorage[propsToShow.date] = value;
       localStorage.setItem(
         'savedNotes',
@@ -84,11 +85,7 @@ function addNewNote(props, proxy, date) {
     document.querySelector('#note-title-textarea'),
   );
   currentNote.date = currentDate;
-  savedNotes[propsToShow.date] = {
-    title: currentNote.title,
-    content: currentNote.content,
-    date: currentNote.date,
-  };
+
   addExcerpt(currentNote);
   return currentNote;
 }
@@ -104,7 +101,26 @@ function addExcerpt(note) {
     noteContentTextarea.value = content.innerText;
     propsToShow.title = title.innerText;
     propsToShow.content = content.innerText;
-    propsToShow.date = parseInt(date);
+    propsToShow.date = parseInt(date.replace('excerpt-', ''));
   });
   noteExcerpt.appendChild(excerptElem);
+}
+
+const trashBin = document.querySelector('#trash');
+trashBin.addEventListener('click', event => {
+  removeNote(propsToShow.date);
+});
+
+function removeNote(noteId) {
+  let savedNotesLocalStorage = JSON.parse(localStorage.getItem('savedNotes'));
+
+  if (savedNotesLocalStorage === null) {
+    savedNotesLocalStorage = {};
+  } else {
+    delete savedNotesLocalStorage[noteId];
+  }
+
+  localStorage.setItem('savedNotes', JSON.stringify(savedNotesLocalStorage));
+  const elemToRemove = document.querySelector(`#excerpt-${noteId}`);
+  elemToRemove.remove();
 }

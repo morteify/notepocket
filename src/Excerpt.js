@@ -23,7 +23,7 @@ export class Excerpt {
 
   createExcerptElement = id => {
     const elem = document.createElement('div');
-    elem.id = id;
+    elem.id = `excerpt-${id}`;
     elem.classList.add('excerpt');
     const title = document.createElement('p');
     title.classList.add(`excerpt__title-${id}`);

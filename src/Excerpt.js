@@ -7,7 +7,6 @@ export class Excerpt {
     this._date = note ? note.date : '';
     this._colorLabel = note ? note.colorLabel : '';
     this.tags = [];
-    console.log(note);
     this.createExcerptElement();
   }
 

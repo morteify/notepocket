@@ -182,3 +182,22 @@ function addExcerptRibbon() {
     localStorage.setItem('savedNotes', JSON.stringify(savedNotesLocalStorage));
   });
 }
+
+const searchField = document.querySelector('#searchField');
+searchField.addEventListener('input', event => {
+  // console.log(event.currentTarget.value);
+  const excerpts = document.querySelector('#note-excerpt');
+  Array.from(excerpts.children)
+    .slice(1, excerpts.children.length)
+    .filter(item => {
+      const title = item.firstChild.innerText || '';
+      const noteFragment = item.lastElementChild.innerText || '';
+      if (
+        title.toLowerCase().includes(event.currentTarget.value.toLowerCase())
+      ) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+});

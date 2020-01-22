@@ -50,9 +50,13 @@ const savedNotesProxy = new Proxy(savedNotes, {
         savedNotesLocalStorage = {};
       }
 
-      savedNotesLocalStorage[propsToShow.date]['title'] = value.title;
-      savedNotesLocalStorage[propsToShow.date]['content'] = value.content;
-      savedNotesLocalStorage[propsToShow.date]['date'] = value.date;
+      savedNotesLocalStorage[propsToShow.date] = {
+        title: value.title,
+        content: value.content,
+        date: value.date,
+        colorLabel: propsToShow.colorLabel,
+      };
+
       localStorage.setItem(
         'savedNotes',
         JSON.stringify(savedNotesLocalStorage),
@@ -107,7 +111,7 @@ function addExcerpt(note) {
   excerptElem.addEventListener('click', event => {
     const [title, _, content] = event.currentTarget.children;
     const date = event.currentTarget.id;
-
+    const ribbonColor = event.currentTarget.style['border-right-color'];
     if (currentlySelectedExcerpt !== null) {
       try {
         const prevElem = document.querySelector(`#${currentlySelectedExcerpt}`);
@@ -127,7 +131,7 @@ function addExcerpt(note) {
 
     noteTitleTextarea.value = title.innerText;
     noteContentTextarea.value = content.innerText;
-
+    propsToShow.colorLabel = ribbonColor;
     propsToShow.title = title.innerText;
     propsToShow.content = content.innerText;
     propsToShow.date = parseInt(date.replace('excerpt-', ''));

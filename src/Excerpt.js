@@ -43,7 +43,6 @@ export class Excerpt {
     noteFragment.classList.add(`excerpt__noteFragment-${id}`);
     noteFragment.innerText = this._content;
 
-    console.log(this._colorLabel);
     if (this._colorLabel) {
       elem.style.borderRight = `1rem solid ${this._colorLabel}`;
     }

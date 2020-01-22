@@ -4,6 +4,7 @@ export class Note {
     this.title = '';
     this.content = '';
     this.date = '';
+    this.colorLabel = '';
     this.state = state;
     this.addContent(contentCtx);
     this.addTitle(titleCtx);
